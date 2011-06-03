@@ -209,4 +209,9 @@ Parser.parse
         Postmeta
         Comment
 
+Links:
+http://yonkeltron.com/2010/05/13/creating-a-ruby-dsl/
+http://ipggi.wordpress.com/2011/03/16/the-wordpress-extended-rss-wxr-exportimport-xml-document-format-decoded-and-explained/
+http://vitobotta.com/how-to-migrate-from-wordpress-to-jekyll/
+
 
