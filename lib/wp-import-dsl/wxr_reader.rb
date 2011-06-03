@@ -36,7 +36,7 @@ module WpImportDsl
     class Image
       attr_accessor :width, :height, :aperture, :credit, :camera, :caption,
                     :created_timestamp, :copyright, :focal_length, :iso,
-                    :shutter_speed, :title
+                    :shutter_speed, :title, :image
     end
 
     # Item's postmeta data
@@ -236,40 +236,43 @@ module WpImportDsl
           comments << comment
         end
 
-        item = Item.new
-        item.title          = item.xpath("title").text
-        item.link           = item.xpath("link").text
-        item.pub_date       = item.xpath("pubDate").text
-        item.creator        = item.xpath("dc:creator").text
-        item.guid           = item.xpath("guid").text
-        item.description    = item.xpath("description").text
-        item.content        = item.xpath("content").text
-        item.excerpt        = item.xpath("excerpt").text
-        item.post_id        = item.xpath("wp:post_id").text
-        item.post_date      = item.xpath("wp:post_date").text
-        item.post_date_gmt  = item.xpath("wp:post_date_gmt").text
-        item.comment_status = item.xpath("wp:comment_status").text
-        item.ping_status    = item.xpath("wp:ping_status").text
-        item.post_name      = item.xpath("wp:post_name").text
-        item.status         = item.xpath("wp:status").text
-        item.post_parent    = item.xpath("wp:post_parent").text
-        item.menu_order     = item.xpath("wp:menu_order").text
-        item.post_type      = item.xpath("wp:post_type").text
-        item.post_password  = item.xpath("wp:post_password").text
-        item.attachment_url = item.xpath("wp:attachment_url").text
-        item.is_sticky      = item.xpath("wp:is_sticky").text
-        item.postmetas      = postmetas
-        item.categories     = categories
-        item.tags           = tags
-        item.images         = images
-        item.comments       = comments
+        i = Item.new
+        i.title          = item.xpath("title").text
+        i.link           = item.xpath("link").text
+        i.pub_date       = item.xpath("pubDate").text
+        i.creator        = item.xpath("dc:creator").text
+        i.guid           = item.xpath("guid").text
+        i.description    = item.xpath("description").text
+        i.content        = item.xpath("content").text
+        i.excerpt        = item.xpath("excerpt").text
+        i.post_id        = item.xpath("wp:post_id").text
+        i.post_date      = item.xpath("wp:post_date").text
+        i.post_date_gmt  = item.xpath("wp:post_date_gmt").text
+        i.comment_status = item.xpath("wp:comment_status").text
+        i.ping_status    = item.xpath("wp:ping_status").text
+        i.post_name      = item.xpath("wp:post_name").text
+        i.status         = item.xpath("wp:status").text
+        i.post_parent    = item.xpath("wp:post_parent").text
+        i.menu_order     = item.xpath("wp:menu_order").text
+        i.post_type      = item.xpath("wp:post_type").text
+        i.post_password  = item.xpath("wp:post_password").text
+        i.attachment_url = item.xpath("wp:attachment_url").text
+        i.is_sticky      = item.xpath("wp:is_sticky").text
+        i.postmetas      = postmetas
+        i.categories     = categories
+        i.tags           = tags
+        i.images         = images
+        i.comments       = comments
 
-        @items << item
+        @items << i
       end
+
+      return @rss, @blog, @items
     end
   end
 end
 
 source = File.dirname(__FILE__) + '/../../test/wordpress.2011-06-03.xml'
-WpImportDsl::WxrReader.read!(source)
+rss, blog, items = WpImportDsl::WxrReader.read!(source)
+puts rss.title
 
