@@ -274,5 +274,5 @@ end
 
 source = File.dirname(__FILE__) + '/../../test/wordpress.2011-06-03.xml'
 rss, blog, items = WpImportDsl::WxrReader.read!(source)
-puts rss.title
+puts items.first.title
 
