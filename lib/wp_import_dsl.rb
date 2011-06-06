@@ -1,19 +1,14 @@
 module WpImportDsl
-  #autoload :Rss, 'wp-import-dsl/rss'
-  require File.dirname(__FILE__) + '/wp-import-dsl/rss'
-  require File.dirname(__FILE__) + '/wp-import-dsl/blog'
-  require File.dirname(__FILE__) + '/wp-import-dsl/items'
+  #autoload :Rss,   'wp_import_dsl/rss'
+  #autoload :Blog,  'wp_import_dsl/blog'
+  #autoload :Items, 'wp_import_dsl/items'
+  require File.dirname(__FILE__) + '/wp_import_dsl/rss'
+  require File.dirname(__FILE__) + '/wp_import_dsl/blog'
+  require File.dirname(__FILE__) + '/wp_import_dsl/items'
 
-  module ClassMethods
-    def method_missing(method, *args, &block)
-      method
-    end
-  end
-
-  extend WpImportDsl::ClassMethods
-  extend WpImportDsl::Rss::ClassMethods
-  extend WpImportDsl::Blog::ClassMethods
-  extend WpImportDsl::Items::ClassMethods
+  extend Rss::ClassMethods
+  extend Blog::ClassMethods
+  extend Items::ClassMethods
 
   def self.import(source, &block)
     @@source = source
@@ -184,6 +179,7 @@ WpImportDsl.import('filename.xml') do
   end
 
   # Import only blog pages
+=begin
   pages do
     # All similar to items
   end
@@ -192,4 +188,5 @@ WpImportDsl.import('filename.xml') do
   posts do
     # All similar to items
   end
+=end
 end

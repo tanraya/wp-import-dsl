@@ -14,8 +14,27 @@ module WpImportDsl
       extend WpImportDsl::Comments::ClassMethods
 
       def items(&block)
-        class_eval(&block) if block_given?
+        if block_given?
+          attributes = Attributes.new
+          attributes.instance_eval(&block)
+        end
+        
         puts 'items'
+      end
+    end
+
+    class Attributes
+      def title
+        puts ':title'
+      end
+
+      def description
+        puts ':description'
+      end
+
+
+      def method_missing(method, *args, &block)
+        puts method
       end
     end
   end

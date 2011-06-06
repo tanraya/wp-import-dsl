@@ -8,8 +8,19 @@ module WpImportDsl
       extend WpImportDsl::Tags::ClassMethods
 
       def blog(&block)
-        class_eval(&block) if block_given?
+        if block_given?
+          attributes = Attributes.new
+          attributes.instance_eval(&block)
+        end
+        
         puts 'blog'
+      end
+    end
+
+    class Attributes
+
+      def method_missing(method, *args, &block)
+        puts method
       end
     end
   end

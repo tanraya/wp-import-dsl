@@ -1,131 +1,17 @@
 require 'nokogiri'
 
 module WpImportDsl
-
   # Parse XML data and keep parsed data
   module WxrReader
-    # RSS feed data
-    class Rss
-      attr_accessor :title, :description, :link, :pubDate,
-                    :generator, :language, :cloud
-
-      attr_reader   :image
-
-      def image=(image_url)
-        @image = nil#File.new # mock
-      end
-    end
-
-    # Blog data
-    class Blog
-      attr_accessor :wxr_version, :base_site_url, :base_blog_url,
-                    :categories, :tags
-    end
-
-    # Category data
-    class Category
-      attr_accessor :cat_name, :category_parent, :category_nicename
-    end
-
-    # Tag data
-    class Tag
-      attr_accessor :tag_slug, :tag_name
-    end
-
-    # Image
-    class Image
-      attr_accessor :width, :height, :aperture, :credit, :camera, :caption,
-                    :created_timestamp, :copyright, :focal_length, :iso,
-                    :shutter_speed, :title, :image
-    end
-
-    # Item's postmeta data
-    class Postmeta
-      POSSIBLE_KEYS = [
-        'delicious',
-        'geo_latitude',
-        'geo_longitude',
-        'geo_accuracy',
-        'geo_address',
-        'geo_public',
-        'email_notification',
-        '_wpas_done_yup',
-        '_wpas_done_twitter',
-        'reddit',
-        '_edit_last',
-        '_edit_lock'
-      ]
-
-      attr_accessor :meta_key, :meta_value
-    end
-
-    # Item's comment
-    class Comment
-      attr_accessor :comment_id, :comment_author, :comment_author_email, :comment_author_url,
-                    :comment_author_ip, :comment_date, :comment_date_gmt, :comment_content,
-                    :comment_approved, :comment_type, :comment_parent, :comment_user_id
-      
-      def spam?
-        true
-      end
-    end
-
-    # Item (post or page)
-    class Item
-      STATUSES      = ['publish', 'draft', 'pending', 'private']
-      POST_TYPES    = ['post', 'page', 'media']
-      PING_STATUSES = []
-
-      attr_accessor :title, :link, :pub_date, :creator, :guid, :description, :content,
-                    :excerpt, :post_id, :post_date, :post_date_gmt, :comment_status,
-                    :ping_status, :post_name, :status, :post_parent, :menu_order,
-                    :post_type, :post_password, :attachment_url, :is_sticky, :postmetas,
-                    :categories, :tags, :images, :comments
-
-      def initialize
-        @categories ||= []
-        @postmeta   ||= []
-        @tags       ||= []
-        @images     ||= []
-        @comments   ||= []
-      end
-
-      # Is this item a blog post?
-      def post?
-        true
-      end
-
-      # Is this item a page?
-      def page?
-        true
-      end
-
-      # Is this item a media?
-      def media?
-        true
-      end
-
-      def publish?
-        true
-      end
-
-      def draft?
-        true
-      end
-
-      def pending?
-        true
-      end
-
-      def private?
-        true
-      end
-
-      def sticky?
-        true
-      end
-    end
-
+    require File.dirname(__FILE__) + '/wxr-reader/rss'
+    require File.dirname(__FILE__) + '/wxr-reader/blog'
+    require File.dirname(__FILE__) + '/wxr-reader/tags'
+    require File.dirname(__FILE__) + '/wxr-reader/image'
+    require File.dirname(__FILE__) + '/wxr-reader/postmeta'
+    require File.dirname(__FILE__) + '/wxr-reader/comment'
+    require File.dirname(__FILE__) + '/wxr-reader/category'
+    require File.dirname(__FILE__) + '/wxr-reader/item'
+    
     attr_accessor :rss, :blog, :items
 
     def self.read!(source)
