@@ -1,5 +1,8 @@
 module WpImportDsl
-  autoload :Rss, 'wp-import-dsl/rss'
+  #autoload :Rss, 'wp-import-dsl/rss'
+  require File.dirname(__FILE__) + '/wp-import-dsl/rss'
+  require File.dirname(__FILE__) + '/wp-import-dsl/blog'
+  require File.dirname(__FILE__) + '/wp-import-dsl/items'
 
   module ClassMethods
     def method_missing(method, *args, &block)

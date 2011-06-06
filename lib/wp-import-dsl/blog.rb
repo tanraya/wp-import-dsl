@@ -1,4 +1,7 @@
 module WpImportDsl
+  require File.dirname(__FILE__) + '/categories'
+  require File.dirname(__FILE__) + '/tags'
+
   module Blog
     module ClassMethods
       extend WpImportDsl::Categories::ClassMethods

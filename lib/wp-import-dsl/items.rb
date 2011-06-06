@@ -1,4 +1,10 @@
 module WpImportDsl
+  require File.dirname(__FILE__) + '/categories'
+  require File.dirname(__FILE__) + '/tags'
+  require File.dirname(__FILE__) + '/images'
+  require File.dirname(__FILE__) + '/postmeta'
+  require File.dirname(__FILE__) + '/comments'
+
   module Items
     module ClassMethods
       extend WpImportDsl::Categories::ClassMethods
