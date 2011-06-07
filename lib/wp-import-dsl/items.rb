@@ -1,4 +1,5 @@
 module WpImportDsl
+  # Всем им должен быть доступен текущий итем
   autoload :Categories, 'wp-import-dsl/categories'
   autoload :Tags,       'wp-import-dsl/tags'
   autoload :Images,     'wp-import-dsl/images'
@@ -21,19 +22,25 @@ module WpImportDsl
           attributes.instance_eval(&block)
         end
       end
+
+      def comments(options, &block)
+        # Как добраться к текущему item
+      end
     end
 
     class Attributes
-      def initialize(data)
-        @data = data
+      def initialize(item)
+        @@item = item
+      end
+
+      def item
+        @@item
       end
 
       def method_missing(method, *args, &block)
-        if @data.respond_to?(method)
-          return @data.send(method)
+        if @@item.respond_to?(method)
+          return @@item.send(method)
         end
-
-        nil
       end
     end
   end
