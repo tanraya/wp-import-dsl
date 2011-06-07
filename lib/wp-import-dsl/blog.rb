@@ -1,6 +1,6 @@
 module WpImportDsl
-  require File.dirname(__FILE__) + '/categories'
-  require File.dirname(__FILE__) + '/tags'
+  autoload :Tags,       'wp-import-dsl/tags'
+  autoload :Categories, 'wp-import-dsl/categories'
 
   module Blog
     module ClassMethods
@@ -8,19 +8,17 @@ module WpImportDsl
       extend WpImportDsl::Tags::ClassMethods
 
       def blog(&block)
-        if block_given?
-          attributes = Attributes.new
-          attributes.instance_eval(&block)
-        end
-        
-        puts 'blog'
+        Attributes.new.instance_eval(&block) if block_given?
       end
     end
 
     class Attributes
-
       def method_missing(method, *args, &block)
-        puts method
+        if WpImportDsl.reader.blog.respond_to?(method)
+          return WpImportDsl.reader.blog.send(method)
+        end
+
+        nil
       end
     end
   end

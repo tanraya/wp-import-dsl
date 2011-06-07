@@ -1,7 +1,7 @@
 module WpImportDsl
-  module WxrReader
+  module Wxr
     # Item's postmeta data
-    class Postmeta
+    class Postmeta < Base
       POSSIBLE_KEYS = [
         'delicious',
         'geo_latitude',
@@ -18,6 +18,11 @@ module WpImportDsl
       ]
 
       attr_accessor :meta_key, :meta_value
+
+      def read!
+        self.meta_key   = @doc.xpath("wp:meta_key").text
+        self.meta_value = @doc.xpath("wp:meta_value").text
+      end
     end
   end
 end
