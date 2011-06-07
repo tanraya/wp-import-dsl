@@ -57,6 +57,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/wordpress.2011-06-03.xml') 
 =end
   # Import all blog entries includes pages
   items do
+=begin
 #    puts item.title
     title          # Title of the post or page.
     link           # URL to the post or page.
@@ -144,7 +145,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/wordpress.2011-06-03.xml') 
       shutter_speed
       title
     end
-
+=end
     # Post comments
     comments :skip => [:spam, :pingback] do
       puts comment_id           # This is an auto-incremental, numeric, unique identification number given to each comment.

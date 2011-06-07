@@ -1,23 +1,19 @@
 module WpImportDsl
   module Comments
     module ClassMethods
-=begin
+      # Its does not calls!
       def comments(options, &block)
-        attributes = Attributes.new
-        attributes.instance_eval(&block)
-
         return unless block_given?
-
-        WpImportDsl.reader.items.each do |item|
-          attributes = Attributes.new(item)
-          attributes.instance_eval(&block)
+        puts 'yay'
+        comments = [] # Где взять?????
+        comments.each do |comment|
+          proxy = Proxy.new(comment)
+          proxy.instance_eval(&block)
         end
-
       end
-=end
     end
 
-    class Attributes
+    class Proxy
       def method_missing(method, *args, &block)
         puts method
       end
