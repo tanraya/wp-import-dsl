@@ -20,8 +20,9 @@ module WpImportDsl
       attr_accessor :meta_key, :meta_value
 
       def read!
-        self.meta_key   = @doc.xpath("wp:meta_key").text
-        self.meta_value = @doc.xpath("wp:meta_value").text
+        self.meta_key   = retrieve "wp:meta_key"
+        self.meta_value = retrieve "wp:meta_value"
+        self
       end
     end
   end

@@ -20,6 +20,7 @@ module WpImportDsl
         self.iso               = nil
         self.shutter_speed     = nil
         self.title             = nil
+        self
       end
     end
   end

@@ -23,9 +23,9 @@ module WpImportDsl
           blog_tags << tag
         end
 
-        self.wxr_version   = @doc.xpath("//channel/wp:wxr_version").text
-        self.base_site_url = @doc.xpath("//channel/wp:base_site_url").text
-        self.base_blog_url = @doc.xpath("//channel/wp:base_blog_url").text
+        self.wxr_version   = retrieve "//channel/wp:wxr_version"
+        self.base_site_url = retrieve "//channel/wp:base_site_url"
+        self.base_blog_url = retrieve "//channel/wp:base_blog_url"
         self.categories    = blog_categories
         self.tags          = blog_tags
       end

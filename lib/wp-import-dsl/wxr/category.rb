@@ -5,9 +5,9 @@ module WpImportDsl
       attr_accessor :cat_name, :category_parent, :category_nicename
 
       def read!
-        self.cat_name          = @doc.xpath("wp:cat_name").text
-        self.category_parent   = @doc.xpath("wp:category_parent").text
-        self.category_nicename = @doc.xpath("wp:category_nicename").text
+        self.cat_name          = retrieve "wp:cat_name"
+        self.category_parent   = retrieve "wp:category_parent"
+        self.category_nicename = retrieve "wp:category_nicename"
       end
     end
   end

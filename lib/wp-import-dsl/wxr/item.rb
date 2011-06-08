@@ -6,6 +6,30 @@ module WpImportDsl
       POST_TYPES    = ['post', 'page', 'media']
       PING_STATUSES = []
 
+      attrs :scope => 'wp' do
+        title          :scope => nil
+        link           :scope => nil
+        pubDate        :scope => nil, :alias => :pub_date
+        creator        :scope => 'dc'
+        guid           :scope => nil
+        description    :scope => nil
+        content        :scope => nil
+        excerpt        :scope => nil
+        post_id
+        post_date
+        post_date_gmt
+        comment_status
+        ping_status
+        post_name
+        status
+        post_parent
+        menu_order
+        post_type
+        post_password
+        attachment_url
+        is_sticky
+      end
+=begin
       attr_accessor :title, :link, :pubDate, :creator, :guid, :description, :content,
                     :excerpt, :post_id, :post_date, :post_date_gmt, :comment_status,
                     :ping_status, :post_name, :status, :post_parent, :menu_order,
@@ -13,33 +37,33 @@ module WpImportDsl
                     :categories, :tags, :images, :comments
 
       def read!
-        @categories ||= []
-        @postmeta   ||= []
-        @tags       ||= []
-        @images     ||= []
-        @comments   ||= []
+        categories ||= []
+        postmetas  ||= []
+        tags       ||= []
+        images     ||= []
+        comments   ||= []
 
-        self.title          = @doc.xpath("title").text
-        self.link           = @doc.xpath("link").text
-        self.pubDate        = @doc.xpath("pubDate").text
-        self.creator        = @doc.xpath("dc:creator").text
-        self.guid           = @doc.xpath("guid").text
-        self.description    = @doc.xpath("description").text
-        self.content        = @doc.xpath("content").text
-        self.excerpt        = @doc.xpath("excerpt").text
-        self.post_id        = @doc.xpath("wp:post_id").text
-        self.post_date      = @doc.xpath("wp:post_date").text
-        self.post_date_gmt  = @doc.xpath("wp:post_date_gmt").text
-        self.comment_status = @doc.xpath("wp:comment_status").text
-        self.ping_status    = @doc.xpath("wp:ping_status").text
-        self.post_name      = @doc.xpath("wp:post_name").text
-        self.status         = @doc.xpath("wp:status").text
-        self.post_parent    = @doc.xpath("wp:post_parent").text
-        self.menu_order     = @doc.xpath("wp:menu_order").text
-        self.post_type      = @doc.xpath("wp:post_type").text
-        self.post_password  = @doc.xpath("wp:post_password").text
-        self.attachment_url = @doc.xpath("wp:attachment_url").text
-        self.is_sticky      = @doc.xpath("wp:is_sticky").text
+        self.title          = retrieve "title"
+        self.link           = retrieve "link"
+        self.pubDate        = retrieve "pubDate"
+        self.creator        = retrieve "dc:creator"
+        self.guid           = retrieve "guid"
+        self.description    = retrieve "description"
+        self.content        = retrieve "content"
+        self.excerpt        = retrieve "excerpt"
+        self.post_id        = retrieve "wp:post_id"
+        self.post_date      = retrieve "wp:post_date"
+        self.post_date_gmt  = retrieve "wp:post_date_gmt"
+        self.comment_status = retrieve "wp:comment_status"
+        self.ping_status    = retrieve "wp:ping_status"
+        self.post_name      = retrieve "wp:post_name"
+        self.status         = retrieve "wp:status"
+        self.post_parent    = retrieve "wp:post_parent"
+        self.menu_order     = retrieve "wp:menu_order"
+        self.post_type      = retrieve "wp:post_type"
+        self.post_password  = retrieve "wp:post_password"
+        self.attachment_url = retrieve "wp:attachment_url"
+        self.is_sticky      = retrieve "wp:is_sticky"
         self.postmetas      = postmetas
         self.categories     = categories
         self.tags           = tags
@@ -47,7 +71,7 @@ module WpImportDsl
         self.comments       = comments
         self
       end
-
+=end
       # Is this item a blog post?
       def post?
         self.post_type == 'post'
