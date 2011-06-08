@@ -1,5 +1,4 @@
 module WpImportDsl
-  # Move all autoloads here
   autoload :Item,     'wp-import-dsl/item'
   autoload :Comment,  'wp-import-dsl/comment'
   autoload :Rss,      'wp-import-dsl/rss'
@@ -9,60 +8,49 @@ module WpImportDsl
   autoload :Tag,      'wp-import-dsl/tag'
   autoload :Wxr,      'wp-import-dsl/wxr'
 
+  module Methods
+    def self.items(&block)
+      self.exec_each(Item, :items, {}, &block)
+    end
+
+    def self.pages(&block)
+      self.exec_each(Item, :items, { :only => [ :page ] }, &block)
+    end
+
+    def self.posts(&block)
+      self.exec_each(Item, :items, { :only => [ :post ] }, &block)
+    end
+
+    def self.media(&block)
+      self.exec_each(Item, :items, { :only => [ :media ] }, &block)
+    end
+
+    def self.rss(&block)
+      self.exec(Rss, :rss, {}, &block)
+    end
+
+    def self.blog(&block)
+      self.exec(Blog, :blog, {}, &block)
+    end
+
+    def self.exec_each(klass, block_name, options = {}, &block)
+      return unless WpImportDsl.reader.respond_to? block_name
+      WpImportDsl.reader.send(block_name).each do |x|
+        instance = klass.new(x, options)
+        instance.instance_eval(&block)
+      end
+    end
+
+    def self.exec(klass, block_name, options = {}, &block)
+      return unless WpImportDsl.reader.respond_to? block_name
+      instance = klass.new(WpImportDsl.reader.send(block_name), options)
+      instance.instance_eval(&block)
+    end
+  end
+
   def self.import(source, &block)
     @@reader = Wxr::Reader.new(source)
-    instance_eval(&block)
-  end
-
-  def self.items(&block)
-    return unless self.reader.respond_to? :items
-
-    self.reader.items.each do |item|
-      i = Item.new(item)
-      i.instance_eval(&block)
-    end
-  end
-
-  def self.pages(&block)
-    return unless self.reader.respond_to? :items
-
-    self.reader.items.each do |item|
-      i = Item.new(item, { :only => [ :page ] })
-      i.instance_eval(&block)
-    end
-  end
-
-  def self.posts(&block)
-    return unless self.reader.respond_to? :items
-
-    self.reader.items.each do |item|
-      i = Item.new(item, { :only => [ :post ] })
-      i.instance_eval(&block)
-    end
-  end
-
-  def self.media(&block)
-    return unless self.reader.respond_to? :items
-
-    self.reader.items.each do |item|
-      i = Item.new(item, { :only => [ :media ] })
-      i.instance_eval(&block)
-    end
-  end
-
-
-  def self.rss(&block)
-    return unless self.reader.respond_to? :rss
-
-    r = Rss.new(self.reader.rss)
-    r.instance_eval(&block)
-  end
-
-  def self.blog(&block)
-    return unless self.reader.respond_to? :blog
-
-    b = Blog.new(self.reader.blog)
-    b.instance_eval(&block)
+    Methods.class_eval(&block)
   end
 
   def self.reader

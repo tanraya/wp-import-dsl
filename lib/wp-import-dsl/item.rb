@@ -1,6 +1,6 @@
 module WpImportDsl
   class Item
-    def initialize(item, options = nil)
+    def initialize(item, options)
       @item    = item
       @options = options
     end

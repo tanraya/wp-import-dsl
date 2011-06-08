@@ -1,7 +1,8 @@
 module WpImportDsl
   class Rss
-    def initialize(rss)
-      @rss = rss
+    def initialize(rss, options)
+      @rss     = rss
+      @options = options
     end
 
     def method_missing(method, *args, &block)

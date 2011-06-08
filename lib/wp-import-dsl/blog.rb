@@ -1,7 +1,8 @@
 module WpImportDsl
   class Blog
-    def initialize(blog)
-      @blog = blog
+    def initialize(blog, options)
+      @blog    = blog
+      @options = options
     end
 
     def tags(&block)
