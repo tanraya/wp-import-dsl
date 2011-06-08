@@ -3,8 +3,8 @@ require 'wp-import-dsl'
 
 ########################################################################################################################
 # DSL example
-WpImportDsl.import(File.dirname(__FILE__) + '/source/wordpress.2011-06-03.xml') do
-=begin
+WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
+
   rss do
     puts title         # Contains the site title of the blog.
     puts description   # Is a tagline that can be modified in the Dashboard under General Settings.
@@ -54,64 +54,64 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/wordpress.2011-06-03.xml') 
       tag_name # Is the original name of the tag contained within a character data enclosure.
     end
   end
-=end
+
   # Import all blog entries includes pages
   items do
-=begin
+
 #    puts item.title
-    title          # Title of the post or page.
-    link           # URL to the post or page.
-    pubDate       # Time and date that the post was posted online.
-    creator        # Lists the author of the post. The element is a Dublin Core Rss extension as the Rss specification doesn’t contain any suitable elements for this role.
-    guid           # Is the globally unique identifier used for the identification of the blog post by Rss and WordPress clients. The isPermaLink=false attribute just means that this identifier is not a legitimate website URL and is not usable in a web browser.
-    description    # In Rss documents this element contains the synopsis of the item but in WXR it is left blank.
-    content        # Is the replacement for the restrictive Rss <description> element. Enclosed within a character data enclosure is the complete WordPress formatted blog post, HTML tags and all.
-    excerpt        # This is a summary or description of the post often used by RSS/Atom feeds
-    post_id        # This is an auto-incremental, numeric, unique identification number given to each post, article or page.
-    post_date      # Time and date that the post was published.
-    post_date_gmt  # Time and date in GMT that the post was published.
-    comment_status # A value stating whether public access for posting comments is opened or closed.
-    ping_status
-    post_name      # Is a unique, URL friendly nicename based on the post title.
-    status         # Publish status of the post with the options; ‘publish’, ‘draft’, ‘pending’,’private’.
-    post_parent    # The numeric identification number if the post’s parent. This I think is applicable to WordPress pages which can be nested within each other.
-    menu_order     # I assume is related to menu navigation of nested pages.
-    post_type      # Post type either ‘post’, ‘page’,’media’.
-    post_password  # A non-encrypted password used by WordPress to restrict reading access to the post.
-    attachment_url # Url to post image
-    is_sticky      # A numeric Boolean value (0 = false, 1 = true) to determine if the post as a sticky. A sticky post means the post will always be displayed at the top of any list of posts.
+    puts title          # Title of the post or page.
+    puts link           # URL to the post or page.
+    puts pubDate       # Time and date that the post was posted online.
+    puts creator        # Lists the author of the post. The element is a Dublin Core Rss extension as the Rss specification doesn’t contain any suitable elements for this role.
+    puts guid           # Is the globally unique identifier used for the identification of the blog post by Rss and WordPress clients. The isPermaLink=false attribute just means that this identifier is not a legitimate website URL and is not usable in a web browser.
+    puts description    # In Rss documents this element contains the synopsis of the item but in WXR it is left blank.
+    puts content        # Is the replacement for the restrictive Rss <description> element. Enclosed within a character data enclosure is the complete WordPress formatted blog post, HTML tags and all.
+    puts excerpt        # This is a summary or description of the post often used by RSS/Atom feeds
+    puts post_id        # This is an auto-incremental, numeric, unique identification number given to each post, article or page.
+    puts post_date      # Time and date that the post was published.
+    puts post_date_gmt  # Time and date in GMT that the post was published.
+    puts comment_status # A value stating whether public access for posting comments is opened or closed.
+    puts ping_status
+    puts post_name      # Is a unique, URL friendly nicename based on the post title.
+    puts status         # Publish status of the post with the options; ‘publish’, ‘draft’, ‘pending’,’private’.
+    puts post_parent    # The numeric identification number if the post’s parent. This I think is applicable to WordPress pages which can be nested within each other.
+    puts menu_order     # I assume is related to menu navigation of nested pages.
+    puts post_type      # Post type either ‘post’, ‘page’,’media’.
+    puts post_password  # A non-encrypted password used by WordPress to restrict reading access to the post.
+    puts attachment_url # Url to post image
+    puts is_sticky      # A numeric Boolean value (0 = false, 1 = true) to determine if the post as a sticky. A sticky post means the post will always be displayed at the top of any list of posts.
 
-    post?  # Is this item is blog post?
-    page?  # Is this item a page?
-    media? # Is this item a media?
+    puts post?  # Is this item is blog post?
+    puts page?  # Is this item a page?
+    puts media? # Is this item a media?
 
-    publish?
-    draft?
-    pending?
-    private?
+    puts publish?
+    puts draft?
+    puts pending?
+    puts private?
 
     # Post metadata (Here's info about images)
     # Are containers for newer additions the WXR document format that have been introduced
     # after the original WXR specification. Each <wp:postmeta> element contains 2 child elements.
     postmeta do
-      meta_key
-      meta_value
+      puts meta_key
+      puts meta_value
 
       # Below is a list of the <wp:meta_key> references currently used by WXR.
-      delicious          # is data related to the Delicious social bookmarking web service. http://www.delicious.com/
-      geo_latitude       # is the positioning location of the author when submitted the post. The value is the latitude in degrees
+      puts delicious          # is data related to the Delicious social bookmarking web service. http://www.delicious.com/
+      puts geo_latitude       # is the positioning location of the author when submitted the post. The value is the latitude in degrees
                          # using the World Geodetic System 1984 (WGS84) datum. It seems to be based on the Google Gears Geolocation API.
                          # http://code.google.com/apis/gears/api_geolocation.html
-      geo_longitude      # is the positioning location of the author when they submitted the post. The value is the longitude coordinates.
-      geo_accuracy       # is the horizontal accuracy of the above positioning values in metres.
-      geo_address        # is the address determined by the above geolocation data.
-      geo_public         # is a Boolean numeric value that determines if the geolocation data should be displayed in the post.
-      email_notification # is an unknown value related to the email notification service for posting comments.
-      _wpas_done_yup     # is an unknown numeric Boolean value.
-      _wpas_done_twitter # is an unknown numeric Boolean value related to Twitter.
-      reddit             # is data related to the reddit social news web service. http://www.reddit.com/
-      _edit_last         # is an unknown reference.
-      _edit_lock         # is an unknown reference.
+      puts geo_longitude      # is the positioning location of the author when they submitted the post. The value is the longitude coordinates.
+      puts geo_accuracy       # is the horizontal accuracy of the above positioning values in metres.
+      puts geo_address        # is the address determined by the above geolocation data.
+      puts geo_public         # is a Boolean numeric value that determines if the geolocation data should be displayed in the post.
+      puts email_notification # is an unknown value related to the email notification service for posting comments.
+      puts _wpas_done_yup     # is an unknown numeric Boolean value.
+      puts _wpas_done_twitter # is an unknown numeric Boolean value related to Twitter.
+      puts reddit             # is data related to the reddit social news web service. http://www.reddit.com/
+      puts _edit_last         # is an unknown reference.
+      puts _edit_lock         # is an unknown reference.
     end
 
     # Post categories
@@ -119,55 +119,54 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/wordpress.2011-06-03.xml') 
     # The first element contains just the category as a name, while the second element contains
     # both the category name and the URL friendly nicename attribute.
     categories do
-      name
-      nicename
+      puts name
+      puts nicename
     end
 
     # Post tags
     tags do
-      name
-      nicename
+      puts name
+      puts nicename
     end
 
     # Post images
     # We get it from metadata where meta_key = _wp_attachment_metadata
     images do
-      width
-      height
-      aperture
-      credit
-      camera
-      caption
-      created_timestamp
-      copyright
-      focal_length
-      iso
-      shutter_speed
-      title
+      puts width
+      puts height
+      puts aperture
+      puts credit
+      puts camera
+      puts caption
+      puts created_timestamp
+      puts copyright
+      puts focal_length
+      puts iso
+      puts shutter_speed
+      puts title
     end
-=end
+
     # Post comments
     comments :skip => [:spam, :pingback] do
       puts comment_id           # This is an auto-incremental, numeric, unique identification number given to each comment.
-      comment_author       # The name of author who submitted the comment. The name value is contained within a character data enclosure.
-      comment_author_email # An e-mail address provided by the author of the comment.
-      comment_author_url   # The URL of the author’s website provided by the author of the comment.
-      comment_author_ip    # The IP address belonging to the author of the comment. The IP address is automatically recorded by WordPress.
-      comment_date         # The date and time local to the blog that the comment was posted.
-      comment_date_gmt     # The date and time at GMT that the comment was posted.
-      comment_content      # The comment text enclosed within a character data enclosure.
-      comment_approved     # A numeric Boolean value to determine if the comment is displayed.
-      comment_type         # The type of comment. If left blank it is classed as a normal comment
+      puts comment_author       # The name of author who submitted the comment. The name value is contained within a character data enclosure.
+      puts comment_author_email # An e-mail address provided by the author of the comment.
+      puts comment_author_url   # The URL of the author’s website provided by the author of the comment.
+      puts comment_author_IP    # The IP address belonging to the author of the comment. The IP address is automatically recorded by WordPress.
+      puts comment_date         # The date and time local to the blog that the comment was posted.
+      puts comment_date_gmt     # The date and time at GMT that the comment was posted.
+      puts comment_content      # The comment text enclosed within a character data enclosure.
+      puts comment_approved     # A numeric Boolean value to determine if the comment is displayed.
+      puts comment_type         # The type of comment. If left blank it is classed as a normal comment
                            # otherwise a value of ‘pingback’ means it is a post request notification link. http://en.wikipedia.org/wiki/Pingback
-      comment_parent       # The numeric identification of the parent comment used when the comment is a response to a pre-existing comment.
-      comment_user_id      # A numeric identification belonging to the author if they were logged in when they submitted the comment.
+      puts comment_parent       # The numeric identification of the parent comment used when the comment is a response to a pre-existing comment.
+      puts comment_user_id      # A numeric identification belonging to the author if they were logged in when they submitted the comment.
 
-      spam? # Is this comment a spam?
+      puts spam? # Is this comment a spam?
     end
   end
 
   # Import only blog pages
-=begin
   pages do
     # All similar to items
   end
@@ -176,5 +175,10 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/wordpress.2011-06-03.xml') 
   posts do
     # All similar to items
   end
-=end
+
+  # Import only media entries
+  media do
+    # All similar to items
+  end
+
 end

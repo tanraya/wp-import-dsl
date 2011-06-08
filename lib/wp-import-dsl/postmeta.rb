@@ -1,10 +1,11 @@
 module WpImportDsl
-  module Postmeta
-    module ClassMethods
-      def postmeta(&block)
-        class_eval(&block) if block_given?
-        puts 'postmeta'
-      end
+  class Postmeta
+    def initialize(postmeta)
+      @postmeta = postmeta
+    end
+
+    def method_missing(method, *args, &block)
+      @postmeta.send(method) if @postmeta.respond_to? method
     end
   end
 end

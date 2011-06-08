@@ -3,7 +3,7 @@ module WpImportDsl
     class Base
       attr_accessor :doc
 
-      def initialize(doc)
+      def initialize(doc = nil)
         @doc = doc
       end
     end

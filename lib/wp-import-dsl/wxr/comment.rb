@@ -19,6 +19,7 @@ module WpImportDsl
         self.comment_type         = @doc.xpath("wp:comment_type").text
         self.comment_parent       = @doc.xpath("wp:comment_parent").text
         self.comment_user_id      = @doc.xpath("wp:comment_user_id").text
+        self
       end
 
       # Neet to check it out

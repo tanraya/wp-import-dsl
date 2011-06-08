@@ -1,17 +1,11 @@
 module WpImportDsl
-  module Rss
-    module ClassMethods
-      def rss(&block)
-        Proxy.new.instance_eval(&block) if block_given?
-      end
+  class Rss
+    def initialize(rss)
+      @rss = rss
     end
 
-    class Proxy
-      def method_missing(method, *args, &block)
-        if WpImportDsl.reader.rss.respond_to?(method)
-          WpImportDsl.reader.rss.send(method)
-        end
-      end
+    def method_missing(method, *args, &block)
+      @rss.send(method) if @rss.respond_to? method
     end
   end
 end

@@ -45,6 +45,7 @@ module WpImportDsl
         self.tags           = tags
         self.images         = images
         self.comments       = comments
+        self
       end
 
       # Is this item a blog post?

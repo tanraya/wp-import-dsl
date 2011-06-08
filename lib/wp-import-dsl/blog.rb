@@ -1,25 +1,29 @@
 module WpImportDsl
-  autoload :Tags,       'wp-import-dsl/tags'
-  autoload :Categories, 'wp-import-dsl/categories'
+  class Blog
+    def initialize(blog)
+      @blog = blog
+    end
 
-  module Blog
-    module ClassMethods
-      extend WpImportDsl::Categories::ClassMethods
-      extend WpImportDsl::Tags::ClassMethods
+    def tags(&block)
+      return unless @blog.respond_to? :tags
 
-      def blog(&block)
-        Attributes.new.instance_eval(&block) if block_given?
+      @blog.tags.each do |tag|
+        t = Tag.new(tag)
+        t.instance_eval(&block)
       end
     end
 
-    class Attributes
-      def method_missing(method, *args, &block)
-        if WpImportDsl.reader.blog.respond_to?(method)
-          return WpImportDsl.reader.blog.send(method)
-        end
+    def categories(&block)
+      return unless @blog.respond_to? :categories
 
-        nil
+      @blog.categories.each do |category|
+        c = Category.new(category)
+        c.instance_eval(&block)
       end
+    end
+
+    def method_missing(method, *args, &block)
+      @blog.send(method) if @blog.respond_to? method
     end
   end
 end
