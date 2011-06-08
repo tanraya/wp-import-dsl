@@ -1,5 +1,22 @@
+=begin
+Есть DSL вида:
+
+WpImportDsl.import(filename) do
+  # Итератор айтемов
+  items do
+    puts title # Печатаем заголовок айтема
+
+    # Итератор комментариев айтема
+    comments do
+      puts comment_date # печатаем дату коммента
+    end
+  end
+end
+
+=end
+
+
 module WpImportDsl
-  # Move all autoloads here
   autoload :Rss,   'wp-import-dsl/rss'
   autoload :Blog,  'wp-import-dsl/blog'
   autoload :Items, 'wp-import-dsl/items'

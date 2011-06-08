@@ -1,5 +1,6 @@
 module WpImportDsl
   module Comments
+=begin
     module ClassMethods
       # Its does not calls!
       def comments(options, &block)
@@ -12,10 +13,17 @@ module WpImportDsl
         end
       end
     end
+=end
 
     class Proxy
+      def initialize(comment)
+        @comment = comment
+      end
+
       def method_missing(method, *args, &block)
-        puts method
+        if @comment.respond_to?(method)
+          return @comment.send(method)
+        end
       end
     end
   end

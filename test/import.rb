@@ -1,9 +1,10 @@
-require 'bundler/setup'
+require "rubygems"
+require "bundler/setup"
 require 'wp-import-dsl'
 
 ########################################################################################################################
 # DSL example
-WpImportDsl.import(File.dirname(__FILE__) + '/source/wordpress.2011-06-03.xml') do
+WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
 =begin
   rss do
     puts title         # Contains the site title of the blog.
