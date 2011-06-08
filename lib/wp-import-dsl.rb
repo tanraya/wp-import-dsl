@@ -1,23 +1,49 @@
 module WpImportDsl
-  class Base
-    def exec(klass, block_name, options = {}, &block)
-      return unless @item.respond_to? block_name
+  autoload :Wxr, 'wp-import-dsl/wxr'
 
-      @item.send(block_name).each do |x|
+  class Base
+    def initialize(data, options)
+      @data    = data
+      @options = options
+    end
+
+    def tags(options, &block)
+      exec_each(Tag, :tags, options, &block)
+    end
+
+    def categories(options, &block)
+      exec_each(Category, :categories, options, &block)
+    end
+
+    def method_missing(method, *args, &block)
+      @data.send(method) if @data.respond_to? method
+    end
+
+  private
+
+    def exec_each(klass, block_name, options = {}, &block)
+      return unless @data.respond_to? block_name
+
+      @data.send(block_name).each do |x|
         instance = klass.new(x, options)
         instance.instance_eval(&block)
       end
     end
   end
 
-  autoload :Item,     'wp-import-dsl/item'
-  autoload :Comment,  'wp-import-dsl/comment'
-  autoload :Rss,      'wp-import-dsl/rss'
-  autoload :Blog,     'wp-import-dsl/blog'
-  autoload :Category, 'wp-import-dsl/category'
-  autoload :Image,    'wp-import-dsl/image'
-  autoload :Tag,      'wp-import-dsl/tag'
-  autoload :Wxr,      'wp-import-dsl/wxr'
+  class Item < Base
+    def comments(options, &block)
+      exec_each(Comment, :comments, options, &block)
+    end
+  end
+
+  class Blog     < Base; end
+  class Postmeta < Base; end
+  class Rss      < Base; end
+  class Tag      < Base; end
+  class Category < Base; end
+  class Comment  < Base; end
+  class Image    < Base; end
 
   module Methods
     def self.items(options, &block)
