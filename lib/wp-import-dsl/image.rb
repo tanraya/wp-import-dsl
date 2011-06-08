@@ -1,7 +1,8 @@
 module WpImportDsl
-  class Image
-    def initialize(image)
-      @image = image
+  class Image < Base
+    def initialize(image, options)
+      @image   = image
+      @options = options
     end
 
     def method_missing(method, *args, &block)

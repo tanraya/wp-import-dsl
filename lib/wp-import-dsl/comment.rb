@@ -1,5 +1,5 @@
 module WpImportDsl
-  class Comment
+  class Comment < Base
     def initialize(comment, options)
       @comment = comment
       @options = options

@@ -1,5 +1,5 @@
 module WpImportDsl
-  class Rss
+  class Rss < Base
     def initialize(rss, options)
       @rss     = rss
       @options = options

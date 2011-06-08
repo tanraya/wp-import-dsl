@@ -1,7 +1,8 @@
 module WpImportDsl
-  class Category
-    def initialize(category)
+  class Category < Base
+    def initialize(category, options)
       @category = category
+      @options  = options
     end
 
     def method_missing(method, *args, &block)

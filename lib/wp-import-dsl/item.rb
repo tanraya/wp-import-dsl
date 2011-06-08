@@ -1,35 +1,20 @@
 module WpImportDsl
-  class Item
+  class Item < Base
     def initialize(item, options)
       @item    = item
       @options = options
     end
 
     def comments(options, &block)
-      return unless @item.respond_to? :tags
-
-      @item.comments.each do |comment|
-        c = Comment.new(comment, options)
-        c.instance_eval(&block)
-      end
+      exec(Comment, :comments, options, &block)
     end
 
-    def tags(&block)
-      return unless @item.respond_to? :tags
-
-      @item.tags.each do |tag|
-        t = Tag.new(tag)
-        t.instance_eval(&block)
-      end
+    def tags(options, &block)
+      exec(Tag, :tags, options, &block)
     end
 
-    def categories(&block)
-      return unless @item.respond_to? :categories
-
-      @item.categories.each do |category|
-        c = Category.new(category)
-        c.instance_eval(&block)
-      end
+    def categories(options, &block)
+      exec(Category, :categories, options, &block)
     end
 
     def method_missing(method, *args, &block)

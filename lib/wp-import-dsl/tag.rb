@@ -1,7 +1,8 @@
 module WpImportDsl
-  class Tag
-    def initialize(tag)
-      @tag = tag
+  class Tag < Base
+    def initialize(tag, options)
+      @tag     = tag
+      @options = options
     end
 
     def method_missing(method, *args, &block)

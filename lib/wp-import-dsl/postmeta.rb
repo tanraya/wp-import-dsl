@@ -1,7 +1,8 @@
 module WpImportDsl
-  class Postmeta
-    def initialize(postmeta)
+  class Postmeta < Base
+    def initialize(postmeta, options)
       @postmeta = postmeta
+      @options  = options
     end
 
     def method_missing(method, *args, &block)

@@ -5,7 +5,7 @@ require 'wp-import-dsl'
 # DSL example
 WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
 
-  rss do
+  rss({}) do
     puts title         # Contains the site title of the blog.
     puts description   # Is a tagline that can be modified in the Dashboard under General Settings.
     puts link          # Is the URL of the blog as determined by WordPress.
@@ -30,7 +30,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
   end
 
   # Import blog stuff
-  blog do
+  blog({}) do
     wxr_version   # This is our first example of an extended Rss element. We can recognise that it does not belong to the Rss specification
                   # as the element contains a colon. Left of the colon contains the elements extension while right is the element name.
                   # wp:wxr_version is the version number for the WordPress extension Rss.
@@ -39,7 +39,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
 
     # Contains a complete collection of categories associated with the blog. You can view and edit the list within the Dashboard under Posts,
     # Categories. Each category is given its own <category> element and contains the following 3 child elements.
-    categories do
+    categories({}) do
       cat_name          # The original name of the category contained within a <![CDDATA[   ]]>. The CDATA or character data enclosure tells
                         # the XML/Rss parser not to process the text contained within. This is a safety measure in case the text contains
                         # any illegal characters that could generate errors. http://www.w3schools.com/xml/xml_cdata.asp
@@ -49,14 +49,14 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
 
     # Contains a complete collection of the blog post tags. You can view and edit the post tags within the
     # Dashboard under Posts, Posts Tags. It contains the following 2 child elements.
-    tags do
+    tags({}) do
       tag_slug # Is the URL friendly name of the tag.
       tag_name # Is the original name of the tag contained within a character data enclosure.
     end
   end
 
   # Import all blog entries includes pages
-  items do
+  items({}) do
 
 #    puts item.title
     puts title          # Title of the post or page.
@@ -93,7 +93,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
     # Post metadata (Here's info about images)
     # Are containers for newer additions the WXR document format that have been introduced
     # after the original WXR specification. Each <wp:postmeta> element contains 2 child elements.
-    postmeta do
+    postmeta({}) do
       puts meta_key
       puts meta_value
 
@@ -118,20 +118,20 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
     # Each category associated with the blog is given 2 category elements.
     # The first element contains just the category as a name, while the second element contains
     # both the category name and the URL friendly nicename attribute.
-    categories do
+    categories({}) do
       puts name
       puts nicename
     end
 
     # Post tags
-    tags do
+    tags({}) do
       puts name
       puts nicename
     end
 
     # Post images
     # We get it from metadata where meta_key = _wp_attachment_metadata
-    images do
+    images({}) do
       puts width
       puts height
       puts aperture
@@ -167,17 +167,17 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
   end
 
   # Import only blog pages
-  pages do
+  pages({}) do
     # All similar to items
   end
 
   # Import only blog posts
-  posts do
+  posts({}) do
     # All similar to items
   end
 
   # Import only media entries
-  media do
+  media({}) do
     # All similar to items
   end
 

@@ -1,26 +1,16 @@
 module WpImportDsl
-  class Blog
+  class Blog < Base
     def initialize(blog, options)
       @blog    = blog
       @options = options
     end
 
-    def tags(&block)
-      return unless @blog.respond_to? :tags
-
-      @blog.tags.each do |tag|
-        t = Tag.new(tag)
-        t.instance_eval(&block)
-      end
+    def tags(options, &block)
+      exec(Tag, :tags, options, &block)
     end
 
-    def categories(&block)
-      return unless @blog.respond_to? :categories
-
-      @blog.categories.each do |category|
-        c = Category.new(category)
-        c.instance_eval(&block)
-      end
+    def categories(options, &block)
+      exec(Category, :categories, options, &block)
     end
 
     def method_missing(method, *args, &block)
