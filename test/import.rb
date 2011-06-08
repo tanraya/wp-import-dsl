@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'bundler/setup'
 require 'wp-import-dsl'
 
@@ -28,7 +29,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
     # <atom:link rel=”pub”> Is a URL pointing to the Google designed pubsubhubbub notification service that is supported by WordPress. In my opinion this is easier to implement
     # and use then the alternative <cloud> service that offers similar functionality. http://code.google.com/p/pubsubhubbub/
   end
-
+=begin
   # Import blog stuff
   blog({}) do
     wxr_version   # This is our first example of an extended Rss element. We can recognise that it does not belong to the Rss specification
@@ -180,5 +181,5 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
   media({}) do
     # All similar to items
   end
-
+=end
 end

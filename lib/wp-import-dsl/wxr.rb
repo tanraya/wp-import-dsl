@@ -22,11 +22,11 @@ module WpImportDsl
       end
 
       def rss
-        Rss.new(@doc).read!
+        Rss.new(@doc)#.read!
       end
 
       def blog
-        Blog.new(@doc).read!
+        Blog.new(@doc)#.read!
       end
 
       def items
@@ -56,7 +56,7 @@ module WpImportDsl
       def grab_postmetas(doc)
         postmetas = []
         doc.xpath("wp:postmeta") do |x|
-          postmetas << Postmeta.new(x).read!
+          postmetas << Postmeta.new(x)#.read!
         end
 
         postmetas
@@ -65,7 +65,7 @@ module WpImportDsl
       def grab_categories(doc)
         categories = []
         doc.xpath("wp:category").each do |x|
-          categories << Category.new(x).read!
+          categories << Category.new(x)#.read!
         end
 
         categories
@@ -74,7 +74,7 @@ module WpImportDsl
       def grab_tags(doc)
         tags = []
         doc.xpath("wp:tag").each do |x|
-          tags << Tag.new(x).read!
+          tags << Tag.new(x)#.read!
         end
 
         tags
@@ -83,7 +83,7 @@ module WpImportDsl
       def grab_images(doc)
         images = []
         doc.xpath("wp:attachment_url").each do |x|
-          images << Image.new(x).read!
+          images << Image.new(x)#.read!
         end
 
         images
@@ -92,7 +92,7 @@ module WpImportDsl
       def grab_comments(doc)
         comments = []
         doc.xpath("wp:comment").each do |x|
-          comments << Comment.new(x).read!
+          comments << Comment.new(x)#.read!
         end
 
         comments

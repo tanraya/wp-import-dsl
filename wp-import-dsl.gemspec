@@ -4,7 +4,7 @@ require "wp-import-dsl/version"
 
 Gem::Specification.new do |s|
   s.name        = "wp-import-dsl"
-  s.version     = Wp::Import::Dsl::VERSION
+  s.version     = WpImportDsl::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["TODO: Write your name"]
   s.email       = ["TODO: Write your email address"]

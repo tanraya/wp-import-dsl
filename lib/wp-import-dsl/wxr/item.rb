@@ -6,6 +6,8 @@ module WpImportDsl
       POST_TYPES    = ['post', 'page', 'media']
       PING_STATUSES = []
 
+      attr_accessor :postmetas, :categories, :tags, :images, :comments
+
       attrs :scope => 'wp' do
         title          :scope => nil
         link           :scope => nil
@@ -28,6 +30,14 @@ module WpImportDsl
         post_password
         attachment_url
         is_sticky
+      end
+
+      def initialize
+        self.categories ||= []
+        self.postmetas  ||= []
+        self.tags       ||= []
+        self.images     ||= []
+        self.comments   ||= []
       end
 =begin
       attr_accessor :title, :link, :pubDate, :creator, :guid, :description, :content,

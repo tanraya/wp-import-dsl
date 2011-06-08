@@ -1,7 +1,3 @@
-module Wp
-  module Import
-    module Dsl
-      VERSION = "0.0.1"
-    end
-  end
+module WpImportDsl
+  VERSION = "0.0.1"
 end
