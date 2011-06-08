@@ -2,9 +2,11 @@ module WpImportDsl
   autoload :Wxr, 'wp-import-dsl/wxr'
 
   class Base
+    attr_accessor :data
+
     def initialize(data, options)
-      @data    = data
-      @options = options
+      self.data    = data
+      self.options = options
     end
 
     def tags(options, &block)
@@ -16,15 +18,15 @@ module WpImportDsl
     end
 
     def method_missing(method, *args, &block)
-      @data.send(method) if @data.respond_to? method
+      self.data.send(method) if self.data.respond_to? method
     end
 
   private
 
     def exec_each(klass, block_name, options = {}, &block)
-      return unless @data.respond_to? block_name
+      return unless self.data.respond_to? block_name
 
-      @data.send(block_name).each do |x|
+      self.data.send(block_name).each do |x|
         instance = klass.new(x, options)
         instance.instance_eval(&block)
       end
