@@ -2,7 +2,7 @@ module WpImportDsl
   module Wxr
     # Tag data
     class Tag < Base
-      attrs :scope => 'wp' do
+      attrs :scope => 'wp:' do
         tag_slug :alias => :slug
         tag_name :alias => :name
       end

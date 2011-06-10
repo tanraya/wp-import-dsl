@@ -5,7 +5,7 @@ require 'wp-import-dsl'
 ########################################################################################################################
 # DSL example
 WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
-
+=begin
   rss({}) do
     puts title         # Contains the site title of the blog.
     puts description   # Is a tagline that can be modified in the Dashboard under General Settings.
@@ -29,33 +29,36 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
     # <atom:link rel=”pub”> Is a URL pointing to the Google designed pubsubhubbub notification service that is supported by WordPress. In my opinion this is easier to implement
     # and use then the alternative <cloud> service that offers similar functionality. http://code.google.com/p/pubsubhubbub/
   end
-=begin
+=end
   # Import blog stuff
   blog({}) do
-    wxr_version   # This is our first example of an extended Rss element. We can recognise that it does not belong to the Rss specification
+    puts wxr_version   # This is our first example of an extended Rss element. We can recognise that it does not belong to the Rss specification
                   # as the element contains a colon. Left of the colon contains the elements extension while right is the element name.
                   # wp:wxr_version is the version number for the WordPress extension Rss.
-    base_site_url # Is the root URL  of the WordPress hosting provider.
-    base_blog_url # Is the root URL of the WordPress blog.
+    puts base_site_url # Is the root URL  of the WordPress hosting provider.
+    puts base_blog_url # Is the root URL of the WordPress blog.
 
     # Contains a complete collection of categories associated with the blog. You can view and edit the list within the Dashboard under Posts,
     # Categories. Each category is given its own <category> element and contains the following 3 child elements.
+
     categories({}) do
-      cat_name          # The original name of the category contained within a <![CDDATA[   ]]>. The CDATA or character data enclosure tells
+      puts 'fuck!'
+      puts cat_name          # The original name of the category contained within a <![CDDATA[   ]]>. The CDATA or character data enclosure tells
                         # the XML/Rss parser not to process the text contained within. This is a safety measure in case the text contains
                         # any illegal characters that could generate errors. http://www.w3schools.com/xml/xml_cdata.asp
-      category_parent   # If the category belongs to a hierarchy then the parent category is listed.
-      category_nicename # Is the category name in a URL friendly format.
+      puts category_parent   # If the category belongs to a hierarchy then the parent category is listed.
+      puts category_nicename # Is the category name in a URL friendly format.
     end
-
+=begin
     # Contains a complete collection of the blog post tags. You can view and edit the post tags within the
     # Dashboard under Posts, Posts Tags. It contains the following 2 child elements.
     tags({}) do
       tag_slug # Is the URL friendly name of the tag.
       tag_name # Is the original name of the tag contained within a character data enclosure.
     end
+=end
   end
-
+=begin
   # Import all blog entries includes pages
   items({}) do
 

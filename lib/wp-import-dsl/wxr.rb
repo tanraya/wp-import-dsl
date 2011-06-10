@@ -30,12 +30,12 @@ module WpImportDsl
       end
 
       def items
-        grab_items(@doc)
+        self.grab_items(@doc)
       end
 
-    private
+    #private
 
-      def grab_items(doc)
+      def self.grab_items(doc)
         items = []
 
         doc.xpath("//channel/item").each do |item_doc|
@@ -53,7 +53,7 @@ module WpImportDsl
         items
       end
 
-      def grab_postmetas(doc)
+      def self.grab_postmetas(doc)
         postmetas = []
         doc.xpath("wp:postmeta") do |x|
           postmetas << Postmeta.new(x)#.read!
@@ -62,7 +62,7 @@ module WpImportDsl
         postmetas
       end
 
-      def grab_categories(doc)
+      def self.grab_categories(doc)
         categories = []
         doc.xpath("wp:category").each do |x|
           categories << Category.new(x)#.read!
@@ -71,7 +71,7 @@ module WpImportDsl
         categories
       end
 
-      def grab_tags(doc)
+      def self.grab_tags(doc)
         tags = []
         doc.xpath("wp:tag").each do |x|
           tags << Tag.new(x)#.read!
@@ -80,7 +80,7 @@ module WpImportDsl
         tags
       end
 
-      def grab_images(doc)
+      def self.grab_images(doc)
         images = []
         doc.xpath("wp:attachment_url").each do |x|
           images << Image.new(x)#.read!
@@ -89,7 +89,7 @@ module WpImportDsl
         images
       end
 
-      def grab_comments(doc)
+      def self.grab_comments(doc)
         comments = []
         doc.xpath("wp:comment").each do |x|
           comments << Comment.new(x)#.read!

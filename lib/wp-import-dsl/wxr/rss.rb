@@ -14,6 +14,7 @@ module WpImportDsl
         image
       end
 
+      # TODO download image from specified url
       def image=(image_url)
         self.image = nil#File.new # mock
       end

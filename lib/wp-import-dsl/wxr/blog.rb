@@ -2,6 +2,25 @@ module WpImportDsl
   module Wxr
     # Blog data
     class Blog < Base
+      attr_accessor :categories, :tags
+
+      attrs :scope => '//channel/wp:' do
+        wxr_version
+        base_site_url :alias => :site_url
+        base_blog_url :alias => :blog_url
+      end
+
+
+      def initialize(doc = nil)
+        super doc
+        self.categories ||= Wxr::Reader.grab_categories(doc)
+        #self.tags       ||= []
+        puts Wxr::Reader.grab_categories(doc.find)
+      end
+
+
+=begin
+
       attr_accessor :wxr_version, :base_site_url, :base_blog_url,
                       :categories, :tags
 
@@ -29,6 +48,7 @@ module WpImportDsl
         self.categories    = blog_categories
         self.tags          = blog_tags
       end
+=end
     end
   end
 end
