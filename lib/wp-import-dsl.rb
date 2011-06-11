@@ -14,7 +14,14 @@ module WpImportDsl
     end
 
     def retrieve(key)
-      self.reader.xpath(key).text
+      typecast(self.reader.xpath(key).text)
+    end
+
+    def typecast(entity)
+      entity = DateTime.parse(entity) if options[:as] == :datetime
+      entity = entity.to_i if options[:as] == :integer
+      entity = entity.to_i > 0 if options[:as] == :boolean
+      entity
     end
 
     def self.attrs(options = {}, &block)
@@ -53,23 +60,23 @@ module WpImportDsl
     attrs :scope => :wp do
       title          :scope => nil
       link           :scope => nil
-      pubDate        :scope => nil, :alias => :pub_date
+      pubDate        :scope => nil, :alias => :pub_date, :as => :datetime
       creator        :scope => :dc
       guid           :scope => nil
       description    :scope => nil
-      post_id
-      post_date
-      post_date_gmt
+      post_id        :as => :integer
+      post_date      :as => :datetime
+      post_date_gmt  :as => :datetime
       comment_status
       ping_status
       post_name
       status
-      post_parent
-      menu_order
+      post_parent    :as => :integer
+      menu_order     :as => :integer
       post_type
       post_password
       attachment_url
-      is_sticky
+      is_sticky      :as => :boolean
     end
 
     def comments(options = {}, &block)
@@ -98,14 +105,6 @@ module WpImportDsl
 
     def excerpt
       retrieve "excerpt:encoded"
-    end
-
-    def post_date=(str)
-      self.post_date = DateTime.parse(str)
-    end
-
-    def post_date_gmt=(str)
-      self.post_date_gmt = DateTime.parse(str)
     end
 
     # Is this item a blog post?
@@ -140,7 +139,7 @@ module WpImportDsl
     end
 
     def sticky?
-      self.is_sticky.to_i > 0
+      self.is_sticky
     end
   end
 
@@ -173,7 +172,7 @@ module WpImportDsl
       title
       description
       link
-      pubDate :alias => :pub_date
+      pubDate :alias => :pub_date, :as => :datetime
       generator
       language
       cloud
@@ -183,10 +182,6 @@ module WpImportDsl
     # TODO download image from specified url
     def image=(image_url)
       self.image = nil#File.new # mock
-    end
-
-    def pubDate=(str)
-      self.pubDate = DateTime.parse(str)
     end
   end
 
@@ -207,30 +202,22 @@ module WpImportDsl
 
   class Comment < Base
     attrs :scope => :wp do
-      comment_id           :alias => :id, :scope => nil # We can remove scope
+      comment_id           :alias => :id, :scope => nil, :as => :integer # We can remove scope
       comment_author       :alias => :author
       comment_author_email :alias => :author_email
       comment_author_url   :alias => :author_url
       comment_author_IP    :alias => :author_ip
-      comment_date         :alias => :date
-      comment_date_gmt     :alias => :date_gmt
+      comment_date         :alias => :date, :as => :datetime
+      comment_date_gmt     :alias => :date_gmt, :as => :datetime
       comment_content      :alias => :content
-      comment_approved     :alias => :approved
+      comment_approved     :alias => :approved, :as => :boolean
       comment_type         :alias => :type
-      comment_parent       :alias => :parent
-      comment_user_id      :alias => :user_id
+      comment_parent       :alias => :parent, :as => :integer
+      comment_user_id      :alias => :user_id, :as => :integer
     end
 
     def spam?
       self.comment_type == 'spam'
-    end
-
-    def comment_date=(str)
-      self.comment_date = DateTime.parse(str)
-    end
-
-    def comment_date_gmt=(str)
-      self.comment_date_gmt = DateTime.parse(str)
     end
   end
 
@@ -240,18 +227,6 @@ module WpImportDsl
 
   module Methods
     def self.items(options = {}, &block)
-      self.exec_each(Item, 'item', options, &block)
-    end
-
-    def self.pages(options = { :only => [ :page ] }, &block)
-      self.exec_each(Item, 'item', options, &block)
-    end
-
-    def self.posts(options = { :only => [ :post ] }, &block)
-      self.exec_each(Item, 'item', options, &block)
-    end
-
-    def self.media(options = { :only => [ :media ] }, &block)
       self.exec_each(Item, 'item', options, &block)
     end
 

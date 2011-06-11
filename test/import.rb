@@ -152,7 +152,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
     end
 
     # Post comments
-    comments :skip => [:spam, :pingback] do
+    comments do
       puts comment_id           # This is an auto-incremental, numeric, unique identification number given to each comment.
       puts comment_author       # The name of author who submitted the comment. The name value is contained within a character data enclosure.
       puts comment_author_email # An e-mail address provided by the author of the comment.
@@ -169,20 +169,5 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
 
       puts spam? # Is this comment a spam?
     end
-  end
-
-  # Import only blog pages
-  pages do
-    # All similar to items
-  end
-
-  # Import only blog posts
-  posts do
-    # All similar to items
-  end
-
-  # Import only media entries
-  media do
-    # All similar to items
   end
 end
