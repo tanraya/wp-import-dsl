@@ -40,7 +40,7 @@
             <wp:cat_name><![CDATA[Uncategorized]]></wp:cat_name>
         </wp:category>
         <generator>http://wordpress.org/?v=3.0.4</generator>
-    
+
         <item>
             <title>Hello world!</title>
             <link>http://longbets.org/?p=1</link>
@@ -79,8 +79,8 @@
                 <wp:comment_user_id>0</wp:comment_user_id>
             </wp:comment>
         </item>
-        
-        
+
+
         <item>
             <title>Second Post, by me!</title>
             <link>http://longbets.org/?p=4</link>
@@ -163,8 +163,8 @@
                 <wp:comment_user_id>1</wp:comment_user_id>
             </wp:comment>
         </item>
-        
-        
+
+
         <item>
             <title>Third Post</title>
             <link>http://longbets.org/?p=6</link>
@@ -233,8 +233,8 @@
                 <wp:comment_user_id>1</wp:comment_user_id>
             </wp:comment>
         </item>
-        
-        
+
+
         <item>
             <title>Fourth Post</title>
             <link>http://longbets.org/?p=8</link>
@@ -275,8 +275,8 @@
                 <wp:meta_value><![CDATA[]]></wp:meta_value>
             </wp:postmeta>
         </item>
-        
-        
+
+
         <item>
             <title>Fifth Post</title>
             <link>http://longbets.org/?p=10</link>

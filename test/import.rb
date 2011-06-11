@@ -29,7 +29,7 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
     # <atom:link rel=”pub”> Is a URL pointing to the Google designed pubsubhubbub notification service that is supported by WordPress. In my opinion this is easier to implement
     # and use then the alternative <cloud> service that offers similar functionality. http://code.google.com/p/pubsubhubbub/
   end
-=end
+
   # Import blog stuff
   blog({}) do
     puts wxr_version   # This is our first example of an extended Rss element. We can recognise that it does not belong to the Rss specification
@@ -49,18 +49,18 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
       puts category_parent   # If the category belongs to a hierarchy then the parent category is listed.
       puts category_nicename # Is the category name in a URL friendly format.
     end
-=begin
+
     # Contains a complete collection of the blog post tags. You can view and edit the post tags within the
     # Dashboard under Posts, Posts Tags. It contains the following 2 child elements.
     tags({}) do
       tag_slug # Is the URL friendly name of the tag.
       tag_name # Is the original name of the tag contained within a character data enclosure.
     end
-=end
+
   end
-=begin
+=end
   # Import all blog entries includes pages
-  items({}) do
+  items do
 
 #    puts item.title
     puts title          # Title of the post or page.
@@ -97,10 +97,10 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
     # Post metadata (Here's info about images)
     # Are containers for newer additions the WXR document format that have been introduced
     # after the original WXR specification. Each <wp:postmeta> element contains 2 child elements.
-    postmeta({}) do
+    postmeta do
       puts meta_key
       puts meta_value
-
+=begin
       # Below is a list of the <wp:meta_key> references currently used by WXR.
       puts delicious          # is data related to the Delicious social bookmarking web service. http://www.delicious.com/
       puts geo_latitude       # is the positioning location of the author when submitted the post. The value is the latitude in degrees
@@ -116,26 +116,27 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
       puts reddit             # is data related to the reddit social news web service. http://www.reddit.com/
       puts _edit_last         # is an unknown reference.
       puts _edit_lock         # is an unknown reference.
+=end
     end
 
     # Post categories
     # Each category associated with the blog is given 2 category elements.
     # The first element contains just the category as a name, while the second element contains
     # both the category name and the URL friendly nicename attribute.
-    categories({}) do
+    categories do
       puts name
       puts nicename
     end
 
     # Post tags
-    tags({}) do
+    tags do
       puts name
       puts nicename
     end
 
     # Post images
     # We get it from metadata where meta_key = _wp_attachment_metadata
-    images({}) do
+    images do
       puts width
       puts height
       puts aperture
@@ -171,18 +172,17 @@ WpImportDsl.import(File.dirname(__FILE__) + '/source/vanilla.xml') do
   end
 
   # Import only blog pages
-  pages({}) do
+  pages do
     # All similar to items
   end
 
   # Import only blog posts
-  posts({}) do
+  posts do
     # All similar to items
   end
 
   # Import only media entries
-  media({}) do
+  media do
     # All similar to items
   end
-=end
 end
